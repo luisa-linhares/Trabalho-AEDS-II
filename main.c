@@ -51,7 +51,7 @@ int main(int argc, char** argv)
         exit(1);
     }
     else {
-        printf("Informe o tamanho da base de dados: ");
+        printf("\nInforme o tamanho da base de dados: ");
         scanf("%d", &tamanhoBase);
         //Cria base de dados no arquivo
         insere_funcionarios(out, tamanhoBase);
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
         le_funcionarios(out);
 
         int codFuncionario = 0;
-        printf("Informe o codigo do funcionario desejado: ");
+        printf("\nInforme o codigo do funcionario desejado: ");
         scanf("%d", &codFuncionario);
 
         busca_funcionario_especifico(out, codFuncionario);
