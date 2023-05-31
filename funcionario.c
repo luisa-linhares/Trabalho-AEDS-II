@@ -91,6 +91,88 @@ TFunc* busca_por_codigo(FILE* in, int codigo) {
     return NULL; // Funcionário não encontrado
 }
 
+TFunc* busca_sequencial_por_codigo(FILE* in, int codigo) {
+    TFunc* func;
+    rewind(in); // Retorna ao início do arquivo
+
+    clock_t start_time = clock(); // Inicia a contagem de tempo
+
+     int comparacoes = 0; // Variável para contar o número de comparações
+
+    while ((func = le(in)) != NULL) {
+
+        comparacoes++; // Incrementa o contador de comparações
+      
+        if (func->cod == codigo) {
+            clock_t end_time = clock(); // Finaliza a contagem de tempo
+            double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC; // Calcula o tempo decorrido em segundos
+            printf("\nTempo de busca: %.4f segundos\n", elapsed_time);
+
+            printf("\nNumero de comparações: %d\n", comparacoes);
+          
+            return func; // Retorna o funcionário encontrado
+        }
+      
+        free(func);
+    }
+
+    clock_t end_time = clock(); // Finaliza a contagem de tempo
+    double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC; // Calcula o tempo decorrido em segundos
+    printf("\nTempo de busca: %.4f segundos\n", elapsed_time);
+    printf("\nNumero de comparações: %d\n", comparacoes);
+    return NULL; // Funcionário não encontrado
+}
+
+TFunc*  busca_binaria_por_codigo(FILE* in, int codigo) {
+    fseek(in, 0, SEEK_END); // Move o cursor para o final do arquivo
+    long size = ftell(in); // Obtém o tamanho total do arquivo em bytes
+
+    int num_regs = size / tamanho(); // Calcula o número de registros no arquivo
+
+    int left = 0; // Índice inicial da busca
+    int right = num_regs - 1; // Índice final da busca
+
+    clock_t start_time = clock(); // Inicia a contagem de tempo
+  
+    int comparacoes = 0; // Variável para contar o número de comparações
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2; // Calcula o índice do elemento do meio
+
+        fseek(in, mid * tamanho(), SEEK_SET); // Move o cursor para a posição do meio
+
+        TFunc* func = le(in); // Lê o registro na posição atual
+
+        comparacoes++; // Incrementa o contador de comparações
+
+        if (func == NULL) {
+            break; // Saí do loop se ocorrer um erro de leitura
+        }
+
+        if (func->cod == codigo) {
+           clock_t end_time = clock(); // Finaliza a contagem de tempo
+           double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC; // Calcula o tempo decorrido em segundos
+           printf("\nTempo de busca: %.4f segundos\n", elapsed_time);
+           printf("\nNumero de comparações: %d\n", comparacoes);
+           return func; // Retorna o funcionário encontrado
+        } else if (func->cod < codigo) {
+            left = mid + 1; // Atualiza o índice inicial para a busca na metade superior
+        } else {
+            right = mid - 1; // Atualiza o índice final para a busca na metade inferior
+        }
+
+        free(func);
+    }
+
+    clock_t end_time = clock(); // Finaliza a contagem de tempo
+    double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC; // Calcula o tempo decorrido em segundos
+   printf("\nTempo de busca: %.4f segundos\n", elapsed_time);
+
+  printf("\nNumero de comparações: %d\n", comparacoes);
+
+    return NULL; // Funcionário não encontrado
+}
+
 // Retorna tamanho do funcionario em bytes
 int tamanho() {
     return sizeof(int)  //cod

@@ -37,6 +37,10 @@ TFunc *le(FILE *in);
 
 TFunc* busca_por_codigo(FILE* in, int codigo);
 
+TFunc* busca_sequencial_por_codigo(FILE* in, int codigo);
+
+TFunc* busca_binaria_por_codigo(FILE* in, int codigo);
+
 // Retorna tamanho do funcionario em bytes
 int tamanho();
 
