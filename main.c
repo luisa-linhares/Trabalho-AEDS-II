@@ -3,7 +3,12 @@
 #include <time.h>
 #include "funcionario.h"
 
+<<<<<<< HEAD
 // Função para inserir funcionários no arquivo
+=======
+
+// FunÃ§Ã£o para inserir funcionÃ¡rios no arquivo
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
 void insere_funcionarios_ordenados(FILE* out, int tamanhoBase) {
     printf("Inserindo funcionarios no arquivo...\n");
 
@@ -15,22 +20,38 @@ void insere_funcionarios_ordenados(FILE* out, int tamanhoBase) {
 }
 
 void insere_funcionarios_desordenados(FILE* out, int num_funcionarios) {
+<<<<<<< HEAD
     printf("Inserindo %d funcionários no arquivo...\n", num_funcionarios);
+=======
+    printf("Inserindo %d funcionÃ¡rios no arquivo...\n", num_funcionarios);
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
 
     // Cria um vetor de ponteiros para TFunc
     TFunc** funcionarios = (TFunc**)malloc(num_funcionarios * sizeof(TFunc*));
     if (funcionarios == NULL) {
+<<<<<<< HEAD
         printf("Erro ao alocar memória para o vetor de funcionários.\n");
         return;
     }
 
     // Gera funcionários aleatórios
+=======
+        printf("Erro ao alocar memÃ³ria para o vetor de funcionÃ¡rios.\n");
+        return;
+    }
+
+    // Gera funcionÃ¡rios aleatÃ³rios
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
     for (int i = 0; i < num_funcionarios; i++) {
         TFunc* func = funcionario_aleatorio(i + 1);
         funcionarios[i] = func;
     }
 
+<<<<<<< HEAD
     // Embaralha aleatoriamente o vetor de funcionários
+=======
+    // Embaralha aleatoriamente o vetor de funcionÃ¡rios
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
     for (int i = num_funcionarios - 1; i > 0; i--) {
         int j = rand() % (i + 1);
         TFunc* temp = funcionarios[i];
@@ -38,7 +59,11 @@ void insere_funcionarios_desordenados(FILE* out, int num_funcionarios) {
         funcionarios[j] = temp;
     }
 
+<<<<<<< HEAD
     // Salva os funcionários no arquivo na ordem atual do vetor embaralhado
+=======
+    // Salva os funcionÃ¡rios no arquivo na ordem atual do vetor embaralhado
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
     for (int i = 0; i < num_funcionarios; i++) {
         salva(funcionarios[i], out);
         free(funcionarios[i]);
@@ -49,7 +74,11 @@ void insere_funcionarios_desordenados(FILE* out, int num_funcionarios) {
     printf("Base de dados desordenada gerada com sucesso!\n");
 }
 
+<<<<<<< HEAD
 // Função para ler os funcionários do arquivo
+=======
+// FunÃ§Ã£o para ler os funcionÃ¡rios do arquivo
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
 void le_funcionarios(FILE *in) {
     printf("\n\nLendo funcionarios do arquivo...\n\n");
     rewind(in);
@@ -79,6 +108,7 @@ void busca_funcionario_especifico(FILE *in, int cod, int opcaoBase){
     }
 }
 
+<<<<<<< HEAD
 void divide_arquivo_em_particoes(FILE* in, int tamanho_particao) {
     printf("Dividindo o arquivo em partições...\n");
 
@@ -148,6 +178,11 @@ void divide_arquivo_em_particoes(FILE* in, int tamanho_particao) {
 int main(int argc, char** argv)
 {
    //declara ponteiro para arquivo
+=======
+int main(int argc, char** argv)
+{
+    //declara ponteiro para arquivo
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
     FILE *out;
     srand(time(NULL));
     int tamanhoBase = 0;
@@ -161,6 +196,7 @@ int main(int argc, char** argv)
         int opcao = 0;
         int opcaoBase= 0;
         int codFuncionario = 0;
+<<<<<<< HEAD
         int tamanhoParticao = 0;
 
         printf("Informe a ordem da base: [1] - Cria base ordenada\t[2] - Cria base desordenada\t");
@@ -197,6 +233,20 @@ int main(int argc, char** argv)
 
             printf("Informe o processo a ser execultado: \n");
             printf("[1] - Imprime base\t[2] - Busca funcinario especifico\t[3] - Dividir arquivo em partições\t\n");
+=======
+        printf("Informe a ordem da base: [1] - Cria base ordenada\t[2] - Cria base desordenada\t");
+        scanf("%d", &opcaoBase);
+        if(opcaoBase == 1){
+            printf("\nInforme o tamanho da base de dados: ");
+            scanf("%d", &tamanhoBase);
+
+            //Cria base de dados no arquivo
+            insere_funcionarios_ordenados(out, tamanhoBase);
+
+
+            printf("Informe o processo a ser execultado: ");
+            printf("[1] - Imprime base\t[2] - Busca funcinario especifico\t");
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
             scanf("%d", &opcao);
 
             switch (opcao){
@@ -206,6 +256,7 @@ int main(int argc, char** argv)
                     break;
                 case 2:
                     //Busca Sequencial
+<<<<<<< HEAD
                     printf("\nInforme o codigo do funcionario desejado: \n");
                     scanf("%d", &codFuncionario);
                     busca_funcionario_especifico(out, codFuncionario, opcaoBase);
@@ -222,6 +273,42 @@ int main(int argc, char** argv)
             }
         }else{
             printf("Ordem da base de dados selecionada inválida!");
+=======
+                    printf("\nInforme o codigo do funcionario desejado: ");
+                    scanf("%d", &codFuncionario);
+                    busca_funcionario_especifico(out, codFuncionario, opcaoBase);
+                    break;
+                default:
+                    printf("Processo invÃ¡lido!");
+            }
+        }else if(opcaoBase == 2){
+            printf("\nInforme o tamanho da base de dados: ");
+            scanf("%d", &tamanhoBase);
+
+            //Cria base de dados desordenada
+            insere_funcionarios_desordenados(out, tamanhoBase);
+
+            printf("Informe o processo a ser execultado: ");
+            printf("[1] - Imprime base\t[2] - Busca funcinario especifico\t");
+            scanf("%d", &opcao);
+
+            switch (opcao){
+                case 1:
+                    //Imprimir base de dados
+                    le_funcionarios(out);
+                    break;
+                case 2:
+                    //Busca Sequencial
+                    printf("\nInforme o codigo do funcionario desejado: ");
+                    scanf("%d", &codFuncionario);
+                    busca_funcionario_especifico(out, codFuncionario, opcaoBase);
+                    break;
+                default:
+                    printf("Processo invÃ¡lido!");
+            }
+        }else{
+            printf("Ordem da base de dados selecionada invÃ¡lida!");
+>>>>>>> f17826373e93bee94fb1344d600d350d93b13972
         }
 
         //fecha arquivo
